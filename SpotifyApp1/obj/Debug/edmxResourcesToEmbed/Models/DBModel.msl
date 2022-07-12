@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SpotifyModelStoreContainer" CdmEntityContainer="SpotifyEntities">
+    <EntitySetMapping Name="Artists">
+      <EntityTypeMapping TypeName="SpotifyModel.Artist">
+        <MappingFragment StoreEntitySet="Artist">
+          <ScalarProperty Name="ArtistId" ColumnName="ArtistId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Bio" ColumnName="Bio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Songs">
+      <EntityTypeMapping TypeName="SpotifyModel.Song">
+        <MappingFragment StoreEntitySet="Song">
+          <ScalarProperty Name="SongId" ColumnName="SongId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateOf_Release" ColumnName="DateOf Release" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDetails">
+      <EntityTypeMapping TypeName="SpotifyModel.UserDetail">
+        <MappingFragment StoreEntitySet="UserDetail">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRatings">
+      <EntityTypeMapping TypeName="SpotifyModel.UserRating">
+        <MappingFragment StoreEntitySet="UserRating">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ArtistSong" TypeName="SpotifyModel.ArtistSong" StoreEntitySet="ArtistSong">
+      <EndProperty Name="Artist">
+        <ScalarProperty Name="ArtistId" ColumnName="ArtistId" />
+      </EndProperty>
+      <EndProperty Name="Song">
+        <ScalarProperty Name="SongId" ColumnName="SongId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

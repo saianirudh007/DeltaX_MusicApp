@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SpotifyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Artist">
+    <Key>
+      <PropertyRef Name="ArtistId" />
+    </Key>
+    <Property Name="ArtistId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DOB" Type="date" Nullable="false" />
+    <Property Name="Bio" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArtistSong">
+    <Key>
+      <PropertyRef Name="ArtistId" />
+      <PropertyRef Name="SongId" />
+    </Key>
+    <Property Name="ArtistId" Type="int" Nullable="false" />
+    <Property Name="SongId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Song">
+    <Key>
+      <PropertyRef Name="SongId" />
+    </Key>
+    <Property Name="SongId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateOf Release" Type="date" Nullable="false" />
+    <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserDetail">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserRating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UID" Type="int" Nullable="false" />
+    <Property Name="SID" Type="int" Nullable="false" />
+    <Property Name="Rating" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__ArtistSon__Artis__44FF419A">
+    <End Role="Artist" Type="Self.Artist" Multiplicity="1" />
+    <End Role="ArtistSong" Type="Self.ArtistSong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artist">
+        <PropertyRef Name="ArtistId" />
+      </Principal>
+      <Dependent Role="ArtistSong">
+        <PropertyRef Name="ArtistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ArtistSon__SongI__45F365D3">
+    <End Role="Song" Type="Self.Song" Multiplicity="1" />
+    <End Role="ArtistSong" Type="Self.ArtistSong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Song">
+        <PropertyRef Name="SongId" />
+      </Principal>
+      <Dependent Role="ArtistSong">
+        <PropertyRef Name="SongId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SpotifyModelStoreContainer">
+    <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ArtistSong" EntityType="Self.ArtistSong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Song" EntityType="Self.Song" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserDetail" EntityType="Self.UserDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ArtistSon__Artis__44FF419A" Association="Self.FK__ArtistSon__Artis__44FF419A">
+      <End Role="Artist" EntitySet="Artist" />
+      <End Role="ArtistSong" EntitySet="ArtistSong" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ArtistSon__SongI__45F365D3" Association="Self.FK__ArtistSon__SongI__45F365D3">
+      <End Role="Song" EntitySet="Song" />
+      <End Role="ArtistSong" EntitySet="ArtistSong" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

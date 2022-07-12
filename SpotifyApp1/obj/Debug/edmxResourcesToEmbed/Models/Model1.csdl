@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SpotifyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Artist">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DOB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ArtistSongs" Relationship="SpotifyModel.ArtistArtistSong" FromRole="Artist" ToRole="ArtistSong" />
+  </EntityType>
+  <EntityType Name="Song">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DateOfRelease" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ArtistId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ArtistSongs" Relationship="SpotifyModel.SongArtistSong" FromRole="Song" ToRole="ArtistSong" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="SpotifyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Artists" EntityType="Self.Artist" />
+    <EntitySet Name="Songs" EntityType="Self.Song" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="ArtistSongs" EntityType="SpotifyModel.ArtistSong" />
+    <AssociationSet Name="ArtistArtistSong" Association="SpotifyModel.ArtistArtistSong">
+      <End Role="Artist" EntitySet="Artists" />
+      <End Role="ArtistSong" EntitySet="ArtistSongs" />
+    </AssociationSet>
+    <AssociationSet Name="SongArtistSong" Association="SpotifyModel.SongArtistSong">
+      <End Role="Song" EntitySet="Songs" />
+      <End Role="ArtistSong" EntitySet="ArtistSongs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ArtistSong">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Artist" Relationship="SpotifyModel.ArtistArtistSong" FromRole="ArtistSong" ToRole="Artist" />
+    <Property Name="ArtistId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Song" Relationship="SpotifyModel.SongArtistSong" FromRole="ArtistSong" ToRole="Song" />
+    <Property Name="SongId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="ArtistArtistSong">
+    <End Type="SpotifyModel.Artist" Role="Artist" Multiplicity="1" />
+    <End Type="SpotifyModel.ArtistSong" Role="ArtistSong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artist">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ArtistSong">
+        <PropertyRef Name="ArtistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SongArtistSong">
+    <End Type="SpotifyModel.Song" Role="Song" Multiplicity="1" />
+    <End Type="SpotifyModel.ArtistSong" Role="ArtistSong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Song">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ArtistSong">
+        <PropertyRef Name="SongId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
