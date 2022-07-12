@@ -4,7 +4,7 @@ I have Implemented a Music Web Application using .NET Framework. Below are the d
 
 ![image](https://user-images.githubusercontent.com/62744238/178561281-894d838e-6727-44f6-bb99-d666dbac2ec1.png)
 
-1.) It is the Login Page
+- It is the Login Page
 
 ![image](https://user-images.githubusercontent.com/62744238/178561571-f26e9578-0609-43e9-bc72-f044e9218712.png)
 2.) It is the SignUp Page.
